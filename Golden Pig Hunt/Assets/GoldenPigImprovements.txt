@@ -1,0 +1,11 @@
+app store ready: 
+- better control of the fence (it realy sucks)
+- 2-3 new pig classes 
+- good looking background
+- background music... some hillbilly banjo stuff would be nice
+- better scoring system, you have to feel better when you collect a golden pig (visual effect f.e.)
+
+Nice to have: 
+-? some flying stuff that you have to press before it reachs the fence, otherwise it freezes for a short time
+
+
