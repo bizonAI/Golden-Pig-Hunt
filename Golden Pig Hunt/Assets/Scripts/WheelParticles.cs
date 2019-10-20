@@ -20,7 +20,6 @@ public class WheelParticles : MonoBehaviour {
             {
                 Instantiate(dustParticleEffect, dustParticlePos[i].transform.position, Quaternion.identity);
             }
-            Debug.Log("onnas");
             player.hasChanged = false;
         }
 	}
