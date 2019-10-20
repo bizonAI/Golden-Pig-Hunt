@@ -20,6 +20,10 @@ public class GoldenPigController : MonoBehaviour {
     private Animator camAnim;
     public Animator anim;
 
+    public GameObject spriteObject;
+    public Sprite overTheFence;
+
+
     private void Start()
     {
         anim.speed = anim.speed * speed;
@@ -64,6 +68,11 @@ public class GoldenPigController : MonoBehaviour {
         if (transform.position.x <= endPos)
         {
             Destroy(gameObject);
+        }
+
+        if(transform.position.x <= -5.3)
+        {
+            spriteObject.GetComponent<SpriteRenderer>().sprite = overTheFence;
         }
 
         if (Player.died)

@@ -14,6 +14,9 @@ public class Player : MonoBehaviour
     public GameObject scoreSystem;
     public static bool died;
 
+    public float smoothTime = 0.3f;
+    private Vector2 velocity = Vector2.zero;
+
     private void Start()
     {
         died = false;
@@ -29,7 +32,7 @@ public class Player : MonoBehaviour
             float newYPosition = currentGatePos.y + yMovement;
             if(Mathf.Abs(newYPosition) < 6.5)
             {
-                theGate.transform.position = new Vector2(currentGatePos.x, newYPosition);
+                theGate.transform.position = Vector2.SmoothDamp(transform.position, new Vector2(currentGatePos.x, newYPosition), ref velocity, smoothTime);
             }            
         }
         lifeText.text = health.ToString() + " x";
