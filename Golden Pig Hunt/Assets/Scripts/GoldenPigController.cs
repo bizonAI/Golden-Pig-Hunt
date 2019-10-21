@@ -22,6 +22,7 @@ public class GoldenPigController : MonoBehaviour {
 
     public GameObject spriteObject;
     public Sprite overTheFence;
+    public float rightBehindFence = -5.3f;
 
 
     private void Start()
@@ -70,7 +71,7 @@ public class GoldenPigController : MonoBehaviour {
             Destroy(gameObject);
         }
 
-        if(transform.position.x <= -5.3)
+        if(transform.position.x <= rightBehindFence)
         {
             spriteObject.GetComponent<SpriteRenderer>().sprite = overTheFence;
         }

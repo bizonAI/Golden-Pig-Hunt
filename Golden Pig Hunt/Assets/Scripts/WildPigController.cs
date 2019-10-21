@@ -13,6 +13,10 @@ public class WildPigController : MonoBehaviour {
     private Animator camAnim;
     public Animator anim;
 
+    public float rightBeforeFence = -3;
+    public GameObject spriteObject;
+    public Sprite angryFace;
+
     private void Start()
     {
         anim.speed = anim.speed * speed;
@@ -27,6 +31,11 @@ public class WildPigController : MonoBehaviour {
         if (transform.position.x <= endPos)
         {
             Destroy(gameObject);
+        }
+
+        if(transform.position.x <= rightBeforeFence)
+        {
+            spriteObject.GetComponent<SpriteRenderer>().sprite = angryFace;
         }
     }
 

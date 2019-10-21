@@ -13,6 +13,14 @@ public class PigController : MonoBehaviour {
 
     private Animator camAnim;
 
+    public float rightBeforeFence = -0;
+    public float rightBehindFence = -5.3f;
+    public GameObject spriteObject;
+    public Sprite suprisedFace;
+    public Sprite happyFace;
+
+    float pigXPos;
+
     private void Start()
     {
         camAnim = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Animator>();
@@ -21,13 +29,26 @@ public class PigController : MonoBehaviour {
 
     void Update ()
     {
+        pigXPos = transform.position.x;
+
         transform.Translate(Vector2.left * speed * Time.deltaTime);
 
         if(transform.position.x <= endPos)
         {
             Destroy(gameObject);
         }
-	}
+
+        if (pigXPos <= rightBeforeFence && pigXPos > rightBehindFence)
+        {
+            spriteObject.GetComponent<SpriteRenderer>().sprite = suprisedFace;
+        }
+
+        if (pigXPos <= rightBehindFence)
+        {
+            spriteObject.GetComponent<SpriteRenderer>().sprite = happyFace;
+        }
+
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
