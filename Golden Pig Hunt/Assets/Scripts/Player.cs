@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && !died)
         {
             float yMovement = Input.GetAxis("Mouse Y");
             Vector2 currentGatePos = theGate.transform.position;

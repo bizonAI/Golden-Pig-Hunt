@@ -21,10 +21,13 @@ public class PigController : MonoBehaviour {
 
     float pigXPos;
 
+    GameOver gameOver;
+
     private void Start()
     {
         camAnim = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Animator>();
         speed = GameObject.FindGameObjectWithTag("Spawner").GetComponent<Spawner>().pigSpeed * speed;
+        gameOver = GetComponent<GameOver> ();
     }
 
     void Update ()
@@ -48,6 +51,10 @@ public class PigController : MonoBehaviour {
             spriteObject.GetComponent<SpriteRenderer>().sprite = happyFace;
         }
 
+        if (Player.died) 
+        {
+            gameOver.DestroyPig(deathEffect);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)

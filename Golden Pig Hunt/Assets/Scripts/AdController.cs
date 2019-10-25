@@ -6,11 +6,14 @@ using UnityEngine.Monetization;
 public class AdController : MonoBehaviour
 {
     public static AdController instance;
+    public int adAmount = 1;
 
     private string store_id = "3336930";
 
     private string video_ad = "video";
     private string rewarded_video_ad = "rewardedVideo";
+
+    private int deathCounter;
 
     private void Awake()
     {
@@ -28,6 +31,7 @@ public class AdController : MonoBehaviour
     private void Start()
     {
         Monetization.Initialize(store_id, true);
+        deathCounter = 0;
     }
     
     public void ShowRewardedAd()
@@ -46,15 +50,26 @@ public class AdController : MonoBehaviour
 
     public void ShowNormalAd()
     {
-        if (Monetization.IsReady(video_ad))
+        if (Player.died)
         {
-            ShowAdPlacementContent ad = null;
-            ad = Monetization.GetPlacementContent(video_ad) as ShowAdPlacementContent;
-
-            if (ad != null)
-            {
-                ad.Show();
-            }
+            deathCounter++;
         }
+
+        if (deathCounter == adAmount) 
+        {
+            if (Monetization.IsReady(video_ad))
+            {
+                ShowAdPlacementContent ad = null;
+                ad = Monetization.GetPlacementContent(video_ad) as ShowAdPlacementContent;
+
+                if (ad != null)
+                {
+                    ad.Show();
+                }
+            }
+
+            deathCounter = 0;
+        }
+        
     }
 }

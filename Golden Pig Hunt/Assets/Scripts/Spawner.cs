@@ -45,61 +45,65 @@ public class Spawner : MonoBehaviour {
     void Update ()
     {
         // SPAWN GOLDEN PIG
-        if(timeBtwSpawnGolden <= 0 + rndSpawnTimeGolden && !Player.died)
+        if (!Player.died)
         {
-            //int rnd = Random.Range(0, spawnObjs.Length);
-
-            spawnPos = new Vector2(transform.position.x, Random.Range(-maxHeight, maxHeight));
-
-            Instantiate(goldenPig, spawnPos, Quaternion.identity);
-            rndSpawnTimeGolden = Random.Range(startTimeBtwSpawnGold / -2, startTimeBtwSpawnGold / 2);
-
-            if(pigSpeed <= maxPigSpeed)
+            if (timeBtwSpawnGolden <= 0 + rndSpawnTimeGolden)
             {
-                pigSpeed += increasePigSpeed;
-            }            
+                //int rnd = Random.Range(0, spawnObjs.Length);
 
-            if(startTimeBtwSpawn >= minTime)
+                spawnPos = new Vector2(transform.position.x, Random.Range(-maxHeight, maxHeight));
+
+                Instantiate(goldenPig, spawnPos, Quaternion.identity);
+                rndSpawnTimeGolden = Random.Range(startTimeBtwSpawnGold / -2, startTimeBtwSpawnGold / 2);
+
+                if (pigSpeed <= maxPigSpeed)
+                {
+                    pigSpeed += increasePigSpeed;
+                }
+
+                if (startTimeBtwSpawn >= minTime)
+                {
+                    startTimeBtwSpawn -= decreaseSpawnTime;
+                    startTimeBtwSpawnGold -= decreaseSpawnTime;
+                }
+
+                timeBtwSpawnGolden = startTimeBtwSpawnGold;
+            }
+            else
             {
-                startTimeBtwSpawn -= decreaseSpawnTime;
-                startTimeBtwSpawnGold -= decreaseSpawnTime;
+                timeBtwSpawnGolden -= Time.deltaTime;
             }
 
-            timeBtwSpawnGolden = startTimeBtwSpawnGold;
-        }
-        else
-        {
-            timeBtwSpawnGolden -= Time.deltaTime;
-        }
+            // SPAWN NORMAL PIG
+            if (timeBtwSpawn <= 0 + rndSpawnTime)
+            {
+                spawnPos = new Vector2(transform.position.x, Random.Range(-maxHeight, maxHeight));
 
-        // SPAWN NORMAL PIG
-		if(timeBtwSpawn <= 0 + rndSpawnTime)
-        {
-            spawnPos = new Vector2(transform.position.x, Random.Range(-maxHeight, maxHeight));
+                Instantiate(normalPig, spawnPos, Quaternion.identity);
+                rndSpawnTime = Random.Range(startTimeBtwSpawn / -2, startTimeBtwSpawn / 2);
 
-            Instantiate(normalPig, spawnPos, Quaternion.identity);
-            rndSpawnTime = Random.Range(startTimeBtwSpawn / -2, startTimeBtwSpawn / 2);
+                timeBtwSpawn = startTimeBtwSpawn;
+            }
+            else
+            {
+                timeBtwSpawn -= Time.deltaTime;
+            }
 
-            timeBtwSpawn = startTimeBtwSpawn;
+            // SPAWN WILD PIG 
+            if (timeBtwSpawnWild <= 0 + rndSpawnTime)
+            {
+                spawnPos = new Vector2(transform.position.x, Random.Range(-maxHeight, maxHeight));
+
+                Instantiate(wildPig, spawnPos, Quaternion.identity);
+                rndSpawnTimeWild = Random.Range(startTimeBtwSpawnWild / -2, startTimeBtwSpawnWild / 2);
+
+                timeBtwSpawnWild = startTimeBtwSpawnWild;
+            }
+            else
+            {
+                timeBtwSpawnWild -= Time.deltaTime;
+            }
         }
-        else
-        {
-            timeBtwSpawn -= Time.deltaTime;
-        }
-
-        // SPAWN WILD PIG 
-        if (timeBtwSpawnWild <= 0 + rndSpawnTime)
-        {
-            spawnPos = new Vector2(transform.position.x, Random.Range(-maxHeight, maxHeight));
-
-            Instantiate(wildPig, spawnPos, Quaternion.identity);
-            rndSpawnTimeWild = Random.Range(startTimeBtwSpawnWild / -2, startTimeBtwSpawnWild / 2);
-
-            timeBtwSpawnWild = startTimeBtwSpawnWild;
-        }
-        else
-        {
-            timeBtwSpawnWild -= Time.deltaTime;
-        }
+       
     }
 }
