@@ -12,10 +12,14 @@ public class Player : MonoBehaviour
     public GameObject theGate;
     public GameObject deathUI;
     public GameObject scoreSystem;
+    public GameController gameController;
+
     public static bool died;
 
     public float smoothTime = 0.3f;
     private Vector2 velocity = Vector2.zero;
+
+    bool playedAd;
 
     private void Start()
     {
@@ -48,5 +52,15 @@ public class Player : MonoBehaviour
     {
         scoreSystem.GetComponent<ScoringSystem>().SetScore();
         deathUI.SetActive(true);
+        DeathAd();
+    }
+
+    void DeathAd()
+    {
+        if (!playedAd)
+        {
+            AdController.instance.ShowNormalAd();
+            playedAd = true;
+        }
     }
 }
