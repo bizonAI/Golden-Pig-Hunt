@@ -13,6 +13,9 @@ public class Player : MonoBehaviour
     public GameObject deathUI;
     public GameObject scoreSystem;
     public GameController gameController;
+    public GameObject[] lifes;
+
+    public Sprite deadHeart;
 
     public static bool died;
 
@@ -21,7 +24,7 @@ public class Player : MonoBehaviour
 
     bool playedAd;
 
-    private void Start()
+    private void Awake()
     {
         died = false;
         deathUI.SetActive(false);
@@ -46,6 +49,12 @@ public class Player : MonoBehaviour
             died = true;
             Death();
         }
+    }
+
+    public void DecreaseHealth(int damage)
+    {
+        lifes[health - 1].GetComponent<Image>().sprite = deadHeart;
+        health -= damage;
     }
 
     void Death()

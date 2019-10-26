@@ -23,4 +23,9 @@ public class GameController : MonoBehaviour
     {
         SceneManager.LoadScene("Home");
     }
+
+    public void GetExtraLife()
+    {
+        AdController.instance.ShowRewardedAd();
+    }
 }

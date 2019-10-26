@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ScoringSystem : MonoBehaviour {
 
     public Text scoreText;
 
-    public Text currentScore;
-    public Text highscoreText;
+    //public Text currentScore;
+    //public Text highscoreText;
+
+    public TMP_Text highscoreText;
+    public TMP_Text currentScore;
 
     public GameObject goldEnd;
 
@@ -16,6 +20,7 @@ public class ScoringSystem : MonoBehaviour {
     private int highscoreValue;
 
     public Animator camAnim;
+    
 
     private void Start()
     {
