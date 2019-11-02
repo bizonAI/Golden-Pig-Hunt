@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
 
     public static bool died;
 
-    public float smoothTime = 0.3f;
+    public float smoothTime = 0.1f;
     private Vector2 velocity = Vector2.zero;
 
     bool playedAd;
