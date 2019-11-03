@@ -8,14 +8,23 @@ public class Player : MonoBehaviour
 {
     public int health;
     public float moveSpeed = 50.0f;
-    public Text lifeText;
+
+
     public GameObject theGate;
     public GameObject deathUI;
+
+    [Header("Controller")]
     public GameObject scoreSystem;
     public GameController gameController;
-    public GameObject[] lifes;
 
+    [Header("Lifes")]
+    public GameObject[] lifes;
     public Sprite deadHeart;
+    public Sprite healthyHeart;
+
+    [Header("Extra Life")]
+    public GameObject continueCanvas;
+    public GameObject rewaredPanel;
 
     public static bool died;
 
@@ -24,10 +33,13 @@ public class Player : MonoBehaviour
 
     bool playedAd;
 
+    int initialHealth;
+
     private void Awake()
     {
         died = false;
         deathUI.SetActive(false);
+        initialHealth = health;
     }
 
     private void Update()
@@ -42,7 +54,6 @@ public class Player : MonoBehaviour
                 theGate.transform.position = Vector2.SmoothDamp(transform.position, new Vector2(currentGatePos.x, newYPosition), ref velocity, smoothTime);
             }            
         }
-        lifeText.text = health.ToString() + " x";
 
         if (health == 0)
         {
@@ -70,6 +81,27 @@ public class Player : MonoBehaviour
         {
             AdController.instance.ShowNormalAd();
             playedAd = true;
+        }
+    }
+
+    //For Video Button
+    public void GainExtraLife()
+    {
+        health = initialHealth;
+        AdController.instance.ShowRewardedAd();
+        continueCanvas.SetActive(true);
+        deathUI.SetActive(false);
+        rewaredPanel.SetActive(false);
+    }
+
+    public void ContinueGameAfterDeath()
+    {
+        died = false;
+        continueCanvas.SetActive(false);
+
+        for(int i = 0; i < lifes.Length; i++)
+        {
+            lifes[i].GetComponent<Image>().sprite = healthyHeart;
         }
     }
 }

@@ -30,7 +30,7 @@ public class AdController : MonoBehaviour
 
     private void Start()
     {
-        //Monetization.Initialize(store_id, false);
+        Monetization.Initialize(store_id, false);
         deathCounter = 0;
     }
     
