@@ -8,9 +8,8 @@ public class Player : MonoBehaviour
 {
     public int health;
     public float moveSpeed = 50.0f;
+    public float maxYPos = 7;
 
-
-    public GameObject theGate;
     public GameObject deathUI;
 
     [Header("Controller")]
@@ -35,25 +34,42 @@ public class Player : MonoBehaviour
 
     int initialHealth;
 
+    float dist;
+    Vector2 latestPos;
+    float initialSmoothTime;
+
     private void Awake()
     {
         died = false;
         deathUI.SetActive(false);
         initialHealth = health;
+        initialSmoothTime = smoothTime;
     }
 
     private void Update()
     {
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector2 mousePos = Input.mousePosition;
+            Vector2 wolrdMousePos = Camera.main.ScreenToWorldPoint(mousePos);
+
+            dist = transform.position.y - wolrdMousePos.y;
+        }
+
         if (Input.GetMouseButton(0) && !died)
         {
-            float yMovement = Input.GetAxis("Mouse Y");
-            Vector2 currentGatePos = theGate.transform.position;
-            float newYPosition = currentGatePos.y + yMovement;
-            if(Mathf.Abs(newYPosition) < 6.5)
-            {
-                theGate.transform.position = Vector2.SmoothDamp(transform.position, new Vector2(currentGatePos.x, newYPosition), ref velocity, smoothTime);
-            }            
+            Vector2 mousePos = Input.mousePosition;
+            Vector2 wolrdMousePos = Camera.main.ScreenToWorldPoint(mousePos);
+
+            Vector2 newPosition = Vector2.Lerp(transform.position, new Vector2(transform.position.x, (wolrdMousePos.y + dist)), smoothTime * Time.deltaTime);
+
+            float newYPos = newPosition.y;
+
+            transform.position = new Vector2(transform.position.x, Mathf.Clamp(newYPos, -maxYPos, maxYPos));
         }
+
+
 
         if (health == 0)
         {
