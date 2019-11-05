@@ -42,6 +42,22 @@ public class Spawner : MonoBehaviour {
         minTime = startTimeBtwSpawn / 4;
     }
 
+
+    public void IncreaseSpeed()
+    {
+        if (pigSpeed <= maxPigSpeed)
+        {
+            pigSpeed += increasePigSpeed;
+        }
+
+        if (startTimeBtwSpawn >= minTime)
+        {
+            startTimeBtwSpawn -= decreaseSpawnTime;
+            startTimeBtwSpawnGold -= decreaseSpawnTime;
+        }
+    }
+
+
     void Update ()
     {
         // SPAWN GOLDEN PIG
@@ -56,16 +72,6 @@ public class Spawner : MonoBehaviour {
                 Instantiate(goldenPig, spawnPos, Quaternion.identity);
                 rndSpawnTimeGolden = Random.Range(startTimeBtwSpawnGold / -2, startTimeBtwSpawnGold / 2);
 
-                if (pigSpeed <= maxPigSpeed)
-                {
-                    pigSpeed += increasePigSpeed;
-                }
-
-                if (startTimeBtwSpawn >= minTime)
-                {
-                    startTimeBtwSpawn -= decreaseSpawnTime;
-                    startTimeBtwSpawnGold -= decreaseSpawnTime;
-                }
 
                 timeBtwSpawnGolden = startTimeBtwSpawnGold;
             }

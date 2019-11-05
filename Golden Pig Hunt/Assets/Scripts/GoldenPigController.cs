@@ -58,7 +58,8 @@ public class GoldenPigController : MonoBehaviour {
             Instantiate(deathSounds[rnd], transform.position, Quaternion.identity);            
 
             //other.GetComponent<Player>().health -= damage;
-            other.GetComponent<Player>().DecreaseHealth(damage);
+            //other.GetComponent<Player>().DecreaseHealth(damage);
+
             camAnim.SetTrigger("shake");
             Instantiate(deathEffect, transform.position, Quaternion.identity);
             Destroy(gameObject);

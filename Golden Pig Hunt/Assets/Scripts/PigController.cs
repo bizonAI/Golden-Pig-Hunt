@@ -67,6 +67,9 @@ public class PigController : MonoBehaviour {
             //camAnim.SetTrigger("shake");
             Instantiate(deathEffect, transform.position, Quaternion.identity);
             Destroy(gameObject);
+
+
+            other.GetComponent<Player>().DecreaseHealth(damage);
         }        
     }
 }

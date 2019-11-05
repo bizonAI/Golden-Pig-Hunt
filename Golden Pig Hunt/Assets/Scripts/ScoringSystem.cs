@@ -8,29 +8,40 @@ public class ScoringSystem : MonoBehaviour {
 
     public Text scoreText;
 
-    //public Text currentScore;
-    //public Text highscoreText;
-
     public TMP_Text highscoreText;
     public TMP_Text currentScore;
 
     public GameObject goldEnd;
+    public Spawner spaner;
+
+    public int normalPigScore = 1;
+    public int goldenPigScore = 5;
 
     private int score;
     private int highscoreValue;
 
     public Animator camAnim;
-    
+
+    public int speedUpScore = 10;
+    int speedUpScoreCounter;
+
+    AudioSource song;
+    public float speedUpSongAmount = 0.1f;
 
     private void Start()
     {
         highscoreText.text = PlayerPrefs.GetInt("Highscore", 0).ToString();
+        song = GetComponent<AudioSource>();
     }
 
     void Update ()
     {
-        scoreText.text = score.ToString();
 	}
+
+    public void UpdateScore()
+    {
+        scoreText.text = score.ToString();
+    }
 
     public void SetScore()
     {
@@ -43,13 +54,22 @@ public class ScoringSystem : MonoBehaviour {
         }
     }
 
+    void SpeedUp()
+    {
+        spaner.IncreaseSpeed();
+        speedUpScoreCounter = 0;
+        song.pitch += speedUpSongAmount;
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!Player.died)
         {
             if (other.CompareTag("Pig"))
             {
-                score -= other.GetComponent<PigController>().damage;
+
+                score += normalPigScore;
+                speedUpScoreCounter += normalPigScore;
             }
 
             if (other.CompareTag("Wild Pig"))
@@ -59,9 +79,17 @@ public class ScoringSystem : MonoBehaviour {
 
             if (other.CompareTag("Golden Pig"))
             {
-                camAnim.SetTrigger("shake");
+                //camAnim.SetTrigger("shake");
                 Instantiate(goldEnd, other.transform.position, Quaternion.identity);
-                score++;
+                score += goldenPigScore;
+                speedUpScoreCounter += goldenPigScore;
+            }
+
+            UpdateScore();
+
+            if(speedUpScoreCounter >= speedUpScore)
+            {
+                SpeedUp();
             }
         }
     }
