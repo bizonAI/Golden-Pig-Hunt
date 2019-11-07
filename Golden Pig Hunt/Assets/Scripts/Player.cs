@@ -10,7 +10,9 @@ public class Player : MonoBehaviour
     public float moveSpeed = 50.0f;
     public float maxYPos = 7;
 
+    [Header("Canvases")]
     public GameObject deathUI;
+    public GameObject countUI;
 
     [Header("Controller")]
     public GameObject scoreSystem;
@@ -82,11 +84,16 @@ public class Player : MonoBehaviour
     {
         lifes[health - 1].GetComponent<Image>().sprite = deadHeart;
         health -= damage;
+
+        if(health == 0)
+        {
+            scoreSystem.GetComponent<ScoringSystem>().SetScore();
+        }
     }
 
     void Death()
     {
-        scoreSystem.GetComponent<ScoringSystem>().SetScore();
+        countUI.SetActive(false);
         deathUI.SetActive(true);
         DeathAd();
     }

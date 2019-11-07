@@ -15,11 +15,17 @@ public class PigController : MonoBehaviour {
 
     public float rightBeforeFence = -0;
     public float rightBehindFence = -5.3f;
+    public float happySpace = 0.8f;
     public GameObject spriteObject;
+
+    [Header("Sprites")]
+    public Sprite normalFace;
     public Sprite suprisedFace;
     public Sprite happyFace;
 
     float pigXPos;
+    float pigYPos;
+    private GameObject player;
 
     GameOver gameOver;
 
@@ -27,12 +33,14 @@ public class PigController : MonoBehaviour {
     {
         camAnim = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Animator>();
         speed = GameObject.FindGameObjectWithTag("Spawner").GetComponent<Spawner>().pigSpeed * speed;
+        player = GameObject.FindGameObjectWithTag("Player");
         gameOver = GetComponent<GameOver> ();
     }
 
     void Update ()
     {
         pigXPos = transform.position.x;
+        pigYPos = transform.position.y;
 
         transform.Translate(Vector2.left * speed * Time.deltaTime);
 
@@ -43,7 +51,17 @@ public class PigController : MonoBehaviour {
 
         if (pigXPos <= rightBeforeFence && pigXPos > rightBehindFence)
         {
-            spriteObject.GetComponent<SpriteRenderer>().sprite = suprisedFace;
+            float yDistToPlayer = Mathf.Abs(player.transform.position.y - pigYPos);
+
+            if(yDistToPlayer <= happySpace)
+            {
+                spriteObject.GetComponent<SpriteRenderer>().sprite = normalFace;
+            }
+            else
+            {
+                spriteObject.GetComponent<SpriteRenderer>().sprite = suprisedFace;
+            }
+            
         }
 
         if (pigXPos <= rightBehindFence)

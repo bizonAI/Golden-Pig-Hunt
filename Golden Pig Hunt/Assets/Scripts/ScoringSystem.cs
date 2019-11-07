@@ -10,6 +10,7 @@ public class ScoringSystem : MonoBehaviour {
 
     public TMP_Text highscoreText;
     public TMP_Text currentScore;
+    public TMP_Text myMoneyText;
 
     public GameObject goldEnd;
     public Spawner spaner;
@@ -19,6 +20,7 @@ public class ScoringSystem : MonoBehaviour {
 
     private int score;
     private int highscoreValue;
+    private int myMoney;
 
     public Animator camAnim;
 
@@ -41,6 +43,8 @@ public class ScoringSystem : MonoBehaviour {
     public void UpdateScore()
     {
         scoreText.text = score.ToString();
+
+        
     }
 
     public void SetScore()
@@ -52,7 +56,11 @@ public class ScoringSystem : MonoBehaviour {
             PlayerPrefs.SetInt("Highscore", score);
             highscoreText.text = score.ToString();
         }
-    }
+
+        PlayerPrefs.SetInt("MyMoney", PlayerPrefs.GetInt("MyMoney", 0) + score);
+
+        myMoneyText.text = PlayerPrefs.GetInt("MyMoney", 0).ToString() + "$";
+    } 
 
     void SpeedUp()
     {
