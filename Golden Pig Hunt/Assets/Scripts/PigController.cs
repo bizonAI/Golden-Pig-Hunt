@@ -32,7 +32,7 @@ public class PigController : MonoBehaviour {
     private void Start()
     {
         camAnim = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Animator>();
-        speed = GameObject.FindGameObjectWithTag("Spawner").GetComponent<Spawner>().pigSpeed * speed;
+        //speed = GameObject.FindGameObjectWithTag("Spawner").GetComponent<Spawner>().pigSpeed * speed;
         player = GameObject.FindGameObjectWithTag("Player");
         gameOver = GetComponent<GameOver> ();
     }

@@ -21,7 +21,7 @@ public class WildPigController : MonoBehaviour {
     {
         anim.speed = anim.speed * speed;
         camAnim = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Animator>();
-        speed = GameObject.FindGameObjectWithTag("Spawner").GetComponent<Spawner>().pigSpeed * speed;
+        //speed = GameObject.FindGameObjectWithTag("Spawner").GetComponent<Spawner>().pigSpeed * speed;
     }
 
     void Update()
