@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class GoldenPigController : MonoBehaviour {
 
-    public float speed = 1.0f;
-    public int damage = 1;
+    public float speedPPS = 1.0f;
     public float endPos = 10.0f;
 
     public GameObject[] deathSounds;
@@ -21,17 +20,21 @@ public class GoldenPigController : MonoBehaviour {
 
     private void Start()
     {
-        anim.speed = anim.speed * speed;
-
+        
         camAnim = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Animator>();
-        speed = GameObject.FindGameObjectWithTag("Spawner").GetComponent<Spawner>().pigSpeed * speed;
+        //speed = GameObject.FindGameObjectWithTag("Spawner").GetComponent<Spawner>().pigSpeed * speed;
 
         //CheckForNearPigs(transform.position, checkRadius);
     }
 
+    public void SetSpeed (float speedPPS) {
+        this.speedPPS = speedPPS;
+        anim.speed = anim.speed * speedPPS * .3f;
+    }
+
     void Update()
     {
-        transform.Translate(Vector2.left * speed * Time.deltaTime);
+        transform.Translate(Vector2.left * speedPPS * Time.deltaTime);
 
         if (transform.position.x <= endPos)
         {

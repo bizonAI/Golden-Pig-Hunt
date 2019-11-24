@@ -13,8 +13,6 @@ public class ScoringSystem : MonoBehaviour {
     public TMP_Text myMoneyText;
 
     public GameObject goldEnd;
-    public Spawner spaner;
-
     public int normalPigScore = 1;
     public int goldenPigScore = 5;
 
@@ -64,7 +62,6 @@ public class ScoringSystem : MonoBehaviour {
 
     void SpeedUp()
     {
-        spaner.IncreaseSpeed();
         speedUpScoreCounter = 0;
         song.pitch += speedUpSongAmount;
     }
