@@ -42,18 +42,20 @@ public class Spawner : MonoBehaviour
         if (!Player.died)
         {
             responseTime = 1 / (decayRate * (currentTime + timeOffset)) + minResponseTime;
+            float pigSpeed = GetPigSpeed(responseTime);
+            // from once to twice
+            pigSpeed += Random.Range(0, pigSpeed);
+            Vector2 spawnPos = new Vector2(transform.position.x + pigSpeed * timeToGoBack, Random.Range(-maxHeight, maxHeight));
             if (lastPigTime < currentTime)
             {
-                GameObject spawningPig = Random.Range(0,10) > 7 ? goldenPig : normalPig;
                 lastPigTime = currentTime + responseTime;
-                float pigSpeed = GetPigSpeed(responseTime);
-                // from once to twice
-                pigSpeed += Random.Range(0, pigSpeed);
-                Vector2 spawnPos = new Vector2(transform.position.x + pigSpeed * timeToGoBack, Random.Range(-maxHeight, maxHeight));
-                GameObject pig = Instantiate(spawningPig, spawnPos, Quaternion.identity);
-                pig.SendMessage("SetSpeed", pigSpeed);
+                GameObject spawningPig = Random.Range(0, 10) > 7 ? goldenPig : normalPig;
+                Instantiate(spawningPig, spawnPos, Quaternion.identity).SendMessage("SetSpeed", pigSpeed);
+            }
+            else if (System.Math.Abs((lastPigTime - currentTime) / responseTime - .5) < .2 && Random.Range(0, 1000) > 990)
+            {
+                Instantiate(wildPig, spawnPos, Quaternion.identity).SendMessage("SetSpeed", pigSpeed);
             }
         }
-
     }
 }
