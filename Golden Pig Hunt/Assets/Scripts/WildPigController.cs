@@ -8,6 +8,7 @@ public class WildPigController : MonoBehaviour {
     public int damage = 2;
     public float endPos = -13.0f;
 
+    public GameObject player;
     public GameObject deathEffect;
     public GameObject[] deathSounds;
     private Animator camAnim;
@@ -20,6 +21,7 @@ public class WildPigController : MonoBehaviour {
     private void Start()
     {
         camAnim = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Animator>();
+        player = GameObject.FindGameObjectWithTag("Player");
         //speed = GameObject.FindGameObjectWithTag("Spawner").GetComponent<Spawner>().pigSpeed * speed;
     }
 
@@ -35,6 +37,8 @@ public class WildPigController : MonoBehaviour {
         
         if (transform.position.x <= endPos)
         {
+            player.SendMessage("DecreaseHealth", 1);
+            camAnim.SetTrigger("shake");
             Destroy(gameObject);
         }
 
@@ -50,8 +54,8 @@ public class WildPigController : MonoBehaviour {
         {
             int rnd = Random.Range(0, deathSounds.Length);
             Instantiate(deathSounds[rnd], transform.position, Quaternion.identity);
-
-            camAnim.SetTrigger("shake");
+            //no shake for bad piggy
+            //camAnim.SetTrigger("shake");
             Instantiate(deathEffect, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }

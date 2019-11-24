@@ -23,10 +23,8 @@ public class ScoringSystem : MonoBehaviour {
     public Animator camAnim;
 
     public int speedUpScore = 10;
-    int speedUpScoreCounter;
 
     AudioSource song;
-    public float speedUpSongAmount = 0.1f;
 
     private void Start()
     {
@@ -34,15 +32,9 @@ public class ScoringSystem : MonoBehaviour {
         song = GetComponent<AudioSource>();
     }
 
-    void Update ()
-    {
-	}
-
     public void UpdateScore()
     {
-        scoreText.text = score.ToString();
-
-        
+        scoreText.text = score.ToString();        
     }
 
     public void SetScore()
@@ -60,12 +52,6 @@ public class ScoringSystem : MonoBehaviour {
         myMoneyText.text = PlayerPrefs.GetInt("MyMoney", 0).ToString() + "$";
     } 
 
-    void SpeedUp()
-    {
-        speedUpScoreCounter = 0;
-        song.pitch += speedUpSongAmount;
-    }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!Player.died)
@@ -74,12 +60,6 @@ public class ScoringSystem : MonoBehaviour {
             {
 
                 score += normalPigScore;
-                speedUpScoreCounter += normalPigScore;
-            }
-
-            if (other.CompareTag("Wild Pig"))
-            {
-                score -= other.GetComponent<WildPigController>().damage;
             }
 
             if (other.CompareTag("Golden Pig"))
@@ -87,15 +67,9 @@ public class ScoringSystem : MonoBehaviour {
                 //camAnim.SetTrigger("shake");
                 Instantiate(goldEnd, other.transform.position, Quaternion.identity);
                 score += goldenPigScore;
-                speedUpScoreCounter += goldenPigScore;
             }
 
             UpdateScore();
-
-            if(speedUpScoreCounter >= speedUpScore)
-            {
-                SpeedUp();
-            }
         }
     }
 }

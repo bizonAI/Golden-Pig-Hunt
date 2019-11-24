@@ -86,7 +86,7 @@ public class PigController : MonoBehaviour {
             int rnd = Random.Range(0, deathSounds.Length);
             Instantiate(deathSounds[rnd], transform.position, Quaternion.identity);
             //other.GetComponent<Player>().health -= damage;
-            //camAnim.SetTrigger("shake");
+            camAnim.SetTrigger("shake");
             Instantiate(deathEffect, transform.position, Quaternion.identity);
             Destroy(gameObject);
 
