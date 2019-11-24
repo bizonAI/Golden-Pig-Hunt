@@ -121,6 +121,7 @@ public class Player : MonoBehaviour
     {
         died = false;
         continueCanvas.SetActive(false);
+        countUI.SetActive(true);
 
         for(int i = 0; i < lifes.Length; i++)
         {
