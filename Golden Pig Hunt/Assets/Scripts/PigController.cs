@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PigController : MonoBehaviour {
 
-    public float speed = 1.0f;
+    public float speedPPS = 1.0f;
     public int damage = 1;
     public float endPos = -13.0f;
 
@@ -37,12 +37,16 @@ public class PigController : MonoBehaviour {
         gameOver = GetComponent<GameOver> ();
     }
 
+    public void SetSpeed (float speedPPS) {
+        this.speedPPS = speedPPS;
+    }
+
     void Update ()
     {
         pigXPos = transform.position.x;
         pigYPos = transform.position.y;
 
-        transform.Translate(Vector2.left * speed * Time.deltaTime);
+        transform.Translate(Vector2.left * speedPPS * Time.deltaTime);
 
         if(transform.position.x <= endPos)
         {

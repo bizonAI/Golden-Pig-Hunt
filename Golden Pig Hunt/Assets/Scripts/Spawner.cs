@@ -11,7 +11,7 @@ public class Spawner : MonoBehaviour
     public GameObject goldenPig;
 
     //setting
-    private float responseTime = 4f;
+    private float responseTime = 3f;
     private float minResponseTime = .3f;
     private float maxHeight = 4f;
     private float lastPigTime = 0f;
@@ -44,14 +44,14 @@ public class Spawner : MonoBehaviour
             responseTime = 1 / (decayRate * (currentTime + timeOffset)) + minResponseTime;
             if (lastPigTime < currentTime)
             {
+                GameObject spawningPig = Random.Range(0,10) > 7 ? goldenPig : normalPig;
                 lastPigTime = currentTime + responseTime;
                 float pigSpeed = GetPigSpeed(responseTime);
                 // from once to twice
                 pigSpeed += Random.Range(0, pigSpeed);
                 Vector2 spawnPos = new Vector2(transform.position.x + pigSpeed * timeToGoBack, Random.Range(-maxHeight, maxHeight));
-                GameObject pig = Instantiate(goldenPig, spawnPos, Quaternion.identity);
+                GameObject pig = Instantiate(spawningPig, spawnPos, Quaternion.identity);
                 pig.SendMessage("SetSpeed", pigSpeed);
-                //Debug.Log(responseTime + " : " + 10 / responseTime);
             }
         }
 
