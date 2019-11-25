@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     [Header("Canvases")]
     public GameObject deathUI;
     public GameObject countUI;
+    public GameObject pauseUI;
+    public GameObject pauseButton;
 
     [Header("Controller")]
     public GameObject scoreSystem;
@@ -46,6 +48,7 @@ public class Player : MonoBehaviour
         deathUI.SetActive(false);
         initialHealth = health;
         initialSmoothTime = smoothTime;
+        Time.timeScale = 1;
     }
 
     private void Update()
@@ -127,5 +130,19 @@ public class Player : MonoBehaviour
         {
             lifes[i].GetComponent<Image>().sprite = healthyHeart;
         }
+    }
+
+    public void PauseGame()
+    {
+        pauseButton.SetActive(false);
+        pauseUI.SetActive(true);
+        Time.timeScale = 0;
+    }
+
+    public void ContinueGame()
+    {
+        pauseButton.SetActive(true);
+        pauseUI.SetActive(false);
+        Time.timeScale = 1;
     }
 }

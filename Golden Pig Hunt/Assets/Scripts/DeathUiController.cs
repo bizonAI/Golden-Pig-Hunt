@@ -12,6 +12,8 @@ public class DeathUiController : MonoBehaviour {
 
     public void HomeScene()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene("Home");
+        
     }
 }
