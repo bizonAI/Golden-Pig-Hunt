@@ -85,10 +85,12 @@ public class Player : MonoBehaviour
 
     public void DecreaseHealth(int damage)
     {
-        lifes[health - 1].GetComponent<Image>().sprite = deadHeart;
-        health -= damage;
-
-        if(health == 0)
+        if (health - damage >= 0)
+        {
+            lifes[health - 1].GetComponent<Image>().sprite = deadHeart;
+            health -= damage;
+        }
+        if (health == 0)
         {
             scoreSystem.GetComponent<ScoringSystem>().SetScore();
         }
@@ -123,10 +125,11 @@ public class Player : MonoBehaviour
     public void ContinueGameAfterDeath()
     {
         died = false;
+        Time.timeScale = 1;
         continueCanvas.SetActive(false);
         countUI.SetActive(true);
 
-        for(int i = 0; i < lifes.Length; i++)
+        for (int i = 0; i < lifes.Length; i++)
         {
             lifes[i].GetComponent<Image>().sprite = healthyHeart;
         }
