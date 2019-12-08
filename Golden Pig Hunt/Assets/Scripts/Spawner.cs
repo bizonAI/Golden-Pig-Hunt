@@ -52,7 +52,7 @@ public class Spawner : MonoBehaviour
                 GameObject spawningPig = Random.Range(0, 10) > 7 ? goldenPig : normalPig;
                 Instantiate(spawningPig, spawnPos, Quaternion.identity).SendMessage("SetSpeed", pigSpeed);
             }
-            else if (System.Math.Abs((lastPigTime - currentTime) / responseTime - .5) < .2 && Random.Range(0, 1000) > 990)
+            else if (System.Math.Abs((lastPigTime - currentTime) / responseTime - .5) < .1 && Random.Range(0, 1000) > 950)
             {
                 Instantiate(wildPig, spawnPos, Quaternion.identity).SendMessage("SetSpeed", pigSpeed);
             }
