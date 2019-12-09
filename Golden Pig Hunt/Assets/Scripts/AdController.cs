@@ -8,7 +8,7 @@ public class AdController : MonoBehaviour
     public static AdController instance;
     public int adAmount = 1;
 
-    private string store_id = "3336930";
+    private string store_id = "3391924";
 
     private string video_ad = "video";
     private string rewarded_video_ad = "rewardedVideo";
